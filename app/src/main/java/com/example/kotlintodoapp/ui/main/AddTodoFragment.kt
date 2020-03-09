@@ -12,13 +12,8 @@ import kotlinx.android.synthetic.main.fragment_add_todo.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddTodoFragment : Fragment() {
-    companion object {
-        fun newInstance() = MainFragment()
-    }
 
     private val viewModel by viewModel<TodoViewModel>()
-    private var title: String = ""
-    private var body: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
