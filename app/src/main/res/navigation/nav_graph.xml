@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navMainFragment"
+    >
+    <fragment
+        android:id="@+id/navMainFragment"
+        android:name="com.example.kotlintodoapp.ui.main.MainFragment"
+        android:label="Main"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainActivity_to_addTodoFragment2"
+            app:destination="@id/addTodoFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTodoFragment2"
+        android:name="com.example.kotlintodoapp.ui.main.AddTodoFragment"
+        android:label="fragment_add_todo"
+        tools:layout="@layout/fragment_add_todo" />
+</navigation>

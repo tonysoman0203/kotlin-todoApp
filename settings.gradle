@@ -1,0 +1,3 @@
+rootProject.name='KotlinTodoApp'
+include ':app'
+include ':appmodule'
