@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.room.Room
 import com.example.kotlintodoapp.dao.TodoDao
 import com.example.kotlintodoapp.drivers.TodoRoomDatabase
-import com.example.kotlintodoapp.repositories.TodoRepositoryImpl
-import com.example.kotlintodoapp.repositories.interfaces.TodoRepository
+import com.example.kotlintodoapp.repositories.TodoRepository
+import com.example.kotlintodoapp.repositories.interfaces.BaseTodoRepository
 import com.example.kotlintodoapp.viewModels.TodoViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -30,11 +30,11 @@ val databaseModule = module {
 }
 
 val repositoryModule = module {
-    fun provideUserRepository(dao: TodoDao): TodoRepository {
-        return TodoRepositoryImpl(dao)
+    fun provideTodoRepository(dao: TodoDao): BaseTodoRepository {
+        return TodoRepository(dao)
     }
 
-    single { provideUserRepository(get()) }
+    single { provideTodoRepository(get()) }
 }
 
 val viewModelModule = module {
