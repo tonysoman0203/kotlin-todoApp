@@ -1,6 +1,5 @@
 package com.example.kotlintodoapp.viewModels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,8 +8,9 @@ import com.example.kotlintodoapp.helper.TodoLogger
 import com.example.kotlintodoapp.model.LoadingState
 import com.example.kotlintodoapp.model.TodoItem
 import com.example.kotlintodoapp.repositories.interfaces.BaseTodoRepository
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import java.util.logging.Logger
+import java.lang.Thread.sleep
 
 class TodoViewModel(private val todoRepository: BaseTodoRepository): ViewModel() {
     var data =  todoRepository.getAllTodoItems()
@@ -23,14 +23,11 @@ class TodoViewModel(private val todoRepository: BaseTodoRepository): ViewModel()
         fetchData()
     }
 
-
-    private fun fetchData(){
+    fun fetchData() {
         viewModelScope.launch {
             try {
                 _loadingState.value = LoadingState.LOADING
-                TodoLogger.debug(message = "${todoRepository.getAllTodoItems().value}")
                 data = todoRepository.getAllTodoItems()
-                TodoLogger.debug(message = "${data.value}")
                 _loadingState.value = LoadingState.LOADED
             } catch (e: Exception) {
                 _loadingState.value = LoadingState.error(e.message)
@@ -49,12 +46,27 @@ class TodoViewModel(private val todoRepository: BaseTodoRepository): ViewModel()
     }
 
     fun setTodoItemIsFinished(isFinished: Boolean, todoItem: TodoItem){
-        TodoLogger.debug(tag = TodoViewModel::javaClass.name , message = "isFinished : $isFinished")
-        todoItem.isFinished = isFinished
-        todoRepository.update(todoItem)
+        try{
+            _loadingState.value = LoadingState.LOADING
+            todoItem.isFinished = isFinished
+            todoRepository.update(todoItem)
+            _loadingState.value = LoadingState.LOADED
+        }catch (e: Exception){
+            _loadingState.value = LoadingState.error(e.message)
+        }
     }
 
     fun removeTodo(oldTodoItem: TodoItem){
-        todoRepository.remove(oldTodoItem.itemId)
+        try{
+            _loadingState.value = LoadingState.LOADING
+            todoRepository.remove(oldTodoItem.itemId)
+            _loadingState.value = LoadingState.LOADED
+        }catch (e: Exception){
+            _loadingState.value = LoadingState.error(e.message)
+        }
+    }
+
+    fun clear(){
+        viewModelScope.coroutineContext.cancel()
     }
 }

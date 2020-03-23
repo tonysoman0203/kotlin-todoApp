@@ -6,7 +6,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
 class TodoApp: Application() {
-    val _modules = listOf(viewModelModule, repositoryModule, databaseModule)
+    private val _modules = listOf(viewModelModule, repositoryModule, databaseModule)
 
     override fun onCreate() {
         super.onCreate()

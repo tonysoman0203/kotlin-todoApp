@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.kotlintodoapp.BuildConfig
 
 object TodoLogger {
-    private val TAG = TodoLogger::javaClass.name
+    private const val TAG = "TodoLogger"
 
     fun debug (tag: String = TAG , message: String) {
         if(BuildConfig.DEBUG){

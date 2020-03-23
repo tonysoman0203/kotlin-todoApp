@@ -2,11 +2,11 @@ package com.example.kotlintodoapp.ui.main
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.kotlintodoapp.R
 import com.example.kotlintodoapp.model.TodoItem
@@ -22,7 +22,6 @@ class AddTodoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_todo, container, false)
     }
 
@@ -33,12 +32,16 @@ class AddTodoFragment : Fragment() {
         btnAddTodoReset.text = getText(R.string.add_todo_reset)
 
         btnAddTodoConfirm.setOnClickListener {
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(it.windowToken, 0)
             val newTodoItem = TodoItem(body = edtBody.text.toString(), title = edtTitle.text.toString())
             viewModel.addTodo(newTodoItem)
             findNavController().popBackStack()
-            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(it.windowToken, 0)
+        }
 
+        btnAddTodoReset.setOnClickListener {
+            edtBody.text = null
+            edtTitle.text = null
         }
     }
 }

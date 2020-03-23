@@ -25,11 +25,21 @@ class TodoItemAdapter(
             if(viewHolder.adapterPosition != RecyclerView.NO_POSITION){
                 val isFinishedFromDb = this.todoItems[viewHolder.adapterPosition].isFinished;
                 onCheckBoxClicked.invoke(!isFinishedFromDb, this.todoItems[viewHolder.adapterPosition]);
+                notifyDataSetChanged()
             }
         };
         viewHolder.itemView.setOnLongClickListener{
-            onLongPressedItem.invoke(viewHolder.adapterPosition, this.todoItems[viewHolder.adapterPosition])
-            return@setOnLongClickListener true
+            if (viewHolder.adapterPosition != RecyclerView.NO_POSITION) {
+                TodoLogger.debug(message = "${this.itemCount} adapter=${viewHolder.adapterPosition}")
+                onLongPressedItem.invoke(
+                    viewHolder.adapterPosition,
+                    this.todoItems[viewHolder.adapterPosition]
+                )
+                notifyItemRangeRemoved(viewHolder.adapterPosition, this.itemCount)
+                notifyDataSetChanged()
+                return@setOnLongClickListener true
+            }
+            return@setOnLongClickListener false
         }
 
         return viewHolder
