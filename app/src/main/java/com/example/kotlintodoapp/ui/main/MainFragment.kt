@@ -85,6 +85,7 @@ class MainFragment : Fragment() {
                     todoList.visibility = View.VISIBLE
                     txtNoTodo.visibility = View.GONE
                     adapter?.todoItems = it
+                    adapter?.notifyDataSetChanged()
                 }
             }
         })
