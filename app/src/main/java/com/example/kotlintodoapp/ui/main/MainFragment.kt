@@ -105,6 +105,7 @@ class MainFragment : Fragment() {
                 // TODO: add gps to check current location weather
                 txtLocation.text = weather.temperature.data[0].place
                 txtWeather.text = weather.temperature.data[0].getValueWithUnit()
+                txtLastUpdated.text = String.format(getString(R.string.last_updated_at),weather.updateTime)
             }
         })
     }
