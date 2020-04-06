@@ -132,17 +132,24 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/notices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:text="GPS Location" />
+
+            <TextView
                 android:id="@+id/txtGps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.MaterialComponents.Headline4"
+                style="@style/TextAppearance.MaterialComponents.Body1"
                 tools:text="TextView" />
 
             <TextView
                 android:id="@+id/txtLat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.MaterialComponents.Body1"
+                style="@style/TextAppearance.MaterialComponents.Body2"
                 tools:text="TextView" />
 
             <TextView

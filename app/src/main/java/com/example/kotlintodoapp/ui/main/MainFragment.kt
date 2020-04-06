@@ -24,10 +24,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.DrawableImageViewTarget
-import com.bumptech.glide.request.target.Target
 import com.example.kotlintodoapp.R
 import com.example.kotlintodoapp.adapter.TodoItemAdapter
 import com.example.kotlintodoapp.helper.PermissonHelper
+import com.example.kotlintodoapp.helper.TodoLogger
 import com.example.kotlintodoapp.model.LoadingState
 import com.example.kotlintodoapp.model.TodoItem
 import com.example.kotlintodoapp.viewModels.TodoViewModel
@@ -130,7 +130,7 @@ class MainFragment : Fragment() {
                     )
                     .into(DrawableImageViewTarget(ivWeather))
                 // TODO: add gps to check current location weather
-                txtLocation.text = weather.temperature.data[0].place
+                txtLocation.text = getString(R.string.hko,weather.temperature.data[0].place)
                 txtWeather.text = weather.temperature.data[0].getValueWithUnit()
                 txtLastUpdated.text =
                     String.format(getString(R.string.last_updated_at), weather.updateTime)
@@ -151,7 +151,7 @@ class MainFragment : Fragment() {
                 )
             )
         }
-        todoList.adapter = adapter;
+        todoList.adapter = adapter
     }
 
     private fun setNavigationToAddTodo() {
@@ -181,11 +181,7 @@ class MainFragment : Fragment() {
                     if (location == null) {
                         requestNewLocationData()
                     } else {
-                        val geoCoder = Geocoder(context!!,Locale.getDefault())
-                        val addresses = geoCoder.getFromLocation(location.latitude,location.longitude,1)
-                        txtLat.text = location.latitude.toString()
-                        txtLng.text = location.longitude.toString()
-                        txtGps.text = addresses[0].countryName
+                        setGPSLocationUI(location)
                     }
                 }
             } else {
@@ -206,7 +202,7 @@ class MainFragment : Fragment() {
         mLocationRequest.numUpdates = 1
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(activity!!)
-        mFusedLocationClient!!.requestLocationUpdates(
+        mFusedLocationClient.requestLocationUpdates(
             mLocationRequest, mLocationCallback,
             Looper.myLooper()
         )
@@ -215,12 +211,17 @@ class MainFragment : Fragment() {
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             var mLastLocation: Location = locationResult.lastLocation
-            val geoCoder = Geocoder(context!!,Locale.getDefault())
-            val addresses = geoCoder.getFromLocation(mLastLocation.latitude,mLastLocation.longitude,1)
-            txtLat.text = mLastLocation.latitude.toString()
-            txtLng.text = mLastLocation.longitude.toString()
-            txtGps.text = addresses[0].countryName
+            setGPSLocationUI(mLastLocation)
         }
+    }
+
+    private fun setGPSLocationUI(location: Location){
+        val geoCoder = Geocoder(context!!, Locale.getDefault())
+        val addresses =
+            geoCoder.getFromLocation(location.latitude, location.longitude, 1)
+        txtLat.text = getString(R.string.lat,location.latitude.toString())
+        txtLng.text = getString(R.string.lat,location.longitude.toString())
+        txtGps.text = getString(R.string.gps_location,addresses[0].getAddressLine(0))
     }
 
     override fun onRequestPermissionsResult(

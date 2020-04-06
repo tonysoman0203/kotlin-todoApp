@@ -6,5 +6,9 @@
     <string name="add_todo_reset">Reset</string>
     <string name="add_todo_confirm">Confirm to Add</string>
     <string name="no_item">No Todo Items</string>
-    <string name="last_updated_at">Last Updated: %s</string>
+    <string name="last_updated_at">香港天文台最後更新時間: %s</string>
+    <string name="gps_location">%s</string>
+    <string name="lat">latitude: %s</string>
+    <string name="lng">longitude: %s</string>
+    <string name="hko">香港天文台 %s</string>
 </resources>
