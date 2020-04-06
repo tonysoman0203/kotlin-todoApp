@@ -9,12 +9,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiClient {
     private val httpClient = OkHttpClient().newBuilder().build()
 
-    fun retrofit(): Retrofit = Retrofit.Builder()
-        .baseUrl("https://data.weather.gov.hk/weatherAPI/opendata/")
+    fun retrofit(baseUrl: String): Retrofit = Retrofit.Builder()
+        .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .client(httpClient)
         .build()
 
-    val weatherApi: WeatherApi = retrofit().create(WeatherApi::class.java)
+    val weatherApi: WeatherApi = retrofit(baseUrl = "https://data.weather.gov.hk/weatherAPI/opendata/").create(WeatherApi::class.java)
 }
