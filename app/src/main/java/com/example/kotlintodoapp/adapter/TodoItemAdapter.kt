@@ -14,21 +14,24 @@ import kotlinx.android.synthetic.main.item_todo.view.*
 class TodoItemAdapter(
     private val onCheckBoxClicked: (isChecked: Boolean, todoItem: TodoItem) -> Unit,
     private val onLongPressedItem: (position: Int, todoItem: TodoItem) -> Unit
-): RecyclerView.Adapter<TodoItemAdapter.TodoItemViewHolder>() {
+) : RecyclerView.Adapter<TodoItemAdapter.TodoItemViewHolder>() {
     var todoItems: List<TodoItem> = emptyList()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoItemViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_todo,parent,false)
-        val viewHolder =  TodoItemViewHolder(view);
-        viewHolder.itemView.chkTodo.setOnClickListener{
-            if(viewHolder.adapterPosition != RecyclerView.NO_POSITION){
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_todo, parent, false)
+        val viewHolder = TodoItemViewHolder(view);
+        viewHolder.itemView.chkTodo.setOnClickListener {
+            if (viewHolder.adapterPosition != RecyclerView.NO_POSITION) {
                 val isFinishedFromDb = this.todoItems[viewHolder.adapterPosition].isFinished;
-                onCheckBoxClicked.invoke(!isFinishedFromDb, this.todoItems[viewHolder.adapterPosition]);
+                onCheckBoxClicked.invoke(
+                    !isFinishedFromDb,
+                    this.todoItems[viewHolder.adapterPosition]
+                );
                 notifyDataSetChanged()
             }
         };
-        viewHolder.itemView.setOnLongClickListener{
+        viewHolder.itemView.setOnLongClickListener {
             if (viewHolder.adapterPosition != RecyclerView.NO_POSITION) {
                 TodoLogger.debug(message = "${this.itemCount} adapter=${viewHolder.adapterPosition}")
                 onLongPressedItem.invoke(
@@ -52,7 +55,7 @@ class TodoItemAdapter(
     }
 
     inner class TodoItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(todoItem: TodoItem){
+        fun bind(todoItem: TodoItem) {
             TodoLogger.debug(message = "item bound $itemView")
 
             itemView.chkTodo.isChecked = todoItem.isFinished

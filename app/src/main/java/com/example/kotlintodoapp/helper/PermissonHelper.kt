@@ -9,7 +9,7 @@ import androidx.core.app.ActivityCompat
 object PermissonHelper {
     val PERMISSION_REQUEST_CODE = 42;
 
-    fun checkPermission(context: Context): Boolean{
+    fun checkPermission(context: Context): Boolean {
         if (ActivityCompat.checkSelfPermission(
                 context,
                 Manifest.permission.ACCESS_COARSE_LOCATION
@@ -24,10 +24,13 @@ object PermissonHelper {
         return false
     }
 
-    fun requestPermission(activity: Activity){
+    fun requestPermission(activity: Activity) {
         ActivityCompat.requestPermissions(
             activity,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
             PERMISSION_REQUEST_CODE
         )
     }

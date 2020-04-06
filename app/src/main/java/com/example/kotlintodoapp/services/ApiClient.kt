@@ -16,5 +16,6 @@ object ApiClient {
         .client(httpClient)
         .build()
 
-    val weatherApi: WeatherApi = retrofit(baseUrl = "https://data.weather.gov.hk/weatherAPI/opendata/").create(WeatherApi::class.java)
+    val weatherApi: WeatherApi =
+        retrofit(baseUrl = "https://data.weather.gov.hk/weatherAPI/opendata/").create(WeatherApi::class.java)
 }

@@ -34,7 +34,8 @@ class AddTodoFragment : Fragment() {
         btnAddTodoConfirm.setOnClickListener {
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)
-            val newTodoItem = TodoItem(body = edtBody.text.toString(), title = edtTitle.text.toString())
+            val newTodoItem =
+                TodoItem(body = edtBody.text.toString(), title = edtTitle.text.toString())
             viewModel.addTodo(newTodoItem)
             findNavController().popBackStack()
         }

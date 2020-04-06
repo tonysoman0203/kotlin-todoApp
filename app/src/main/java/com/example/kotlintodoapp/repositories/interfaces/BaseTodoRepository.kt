@@ -1,7 +1,6 @@
 package com.example.kotlintodoapp.repositories.interfaces
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.kotlintodoapp.model.TodoItem
 
 interface BaseTodoRepository {
