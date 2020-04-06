@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navMainFragment"
         android:name="com.example.kotlintodoapp.ui.main.MainFragment"
-        android:label="Main"
+        android:label="KotlinTodoApp"
         tools:layout="@layout/main_fragment" >
         <action
             android:id="@+id/action_mainActivity_to_addTodoFragment2"
@@ -17,6 +17,6 @@
     <fragment
         android:id="@+id/addTodoFragment2"
         android:name="com.example.kotlintodoapp.ui.main.AddTodoFragment"
-        android:label="fragment_add_todo"
+        android:label="Add Todo"
         tools:layout="@layout/fragment_add_todo" />
 </navigation>
